@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.superclock.release1.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.superclock.release1.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/stopwatch_navigation"
+        android:name="com.superclock.release1.ui.stopwatch.StopwatchFragment"
+        android:label="@string/stopwatch"
+        tools:layout="@layout/fragment_stopwatch" />
+
+    <fragment
+        android:id="@+id/navigation_alarms"
+        android:name="com.superclock.release1.ui.alarms.AlarmFragment"
+        android:label="@string/alarms"
+        tools:layout="@layout/fragment_alarms"/>
+
+    <fragment
+        android:id="@+id/navigation_timer"
+        android:name="com.superclock.release1.ui.timer.TimerFragment"
+        android:label="@string/timer"
+        tools:layout="@layout/fragment_timer"/>
+
+</navigation>
