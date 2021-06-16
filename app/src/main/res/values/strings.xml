@@ -7,5 +7,6 @@
     <string name="alarms">Alarms</string>
     <string name="stopwatch">Stopwatch</string>
     <string name="timer">Timer</string>
+    <string name="message_placeholder">Message Here:</string>
 
 </resources>
