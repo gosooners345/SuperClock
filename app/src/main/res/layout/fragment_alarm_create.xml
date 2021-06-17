@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/scheduleAlarmHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Schedule Alarm"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0.4"
+        android:text="Alarm Time:"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="269dp"
+        android:layout_height="371dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="0.6"
+        android:timePickerMode="clock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Alarm Title"
+        app:layout_constraintTop_toBottomOf="@+id/scheduleAlarmHeading"
+        tools:layout_editor_absoluteX="0dp" />
+
+<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="enter something"
+
+
+
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/recurringChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:text="Recurring?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:chipIconVisible="true"
+        app:closeIconVisible="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker"
+        />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/recurringDaysChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:text="Recurring Alarms"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:chipIconVisible="true"
+        app:closeIconEnabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recurringChip"
+        app:singleLine="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sundayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Sunday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/mondayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Monday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tuesdayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Tuesday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/wednesdayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Wednesday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/thursdayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Thursday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/fridayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Friday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/saturdayChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Saturday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:chipIconVisible="true"
+            app:closeIconVisible="false" />
+    </com.google.android.material.chip.ChipGroup>
+    <!--    <LinearLayout
+            android:id="@+id/timePickerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleAlarmHeading">
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        <Button
+            android:id="@+id/scheduleAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Schedule Alarm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="133dp" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
