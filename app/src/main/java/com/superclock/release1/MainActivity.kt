@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
 
                 R.id.navigation_alarms,
-                R.id.navigation_home,  R.id.stopwatch_navigation,R.id.navigation_timer
+                R.id.navigation_home,  R.id.stopwatch_navigation,R.id.navigation_timer,R.id.createAlarmFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
