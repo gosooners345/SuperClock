@@ -8,8 +8,10 @@ import android.widget.Toast
 import java.util.*
 
 
-class AlarmBroadcastReceiver /*: BroadcastReceiver()*/ {
-  /*  override fun onReceive(context: Context, intent: Intent) {
+class AlarmBroadcastReceiver : BroadcastReceiver()
+ {
+
+  override fun onReceive(context: Context, intent: Intent) {
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             val toastText = String.format("Alarm Reboot")
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
@@ -84,8 +86,11 @@ class AlarmBroadcastReceiver /*: BroadcastReceiver()*/ {
         const val THURSDAY = "THURSDAY"
         const val FRIDAY = "FRIDAY"
         const val SATURDAY = "SATURDAY"
+
         const val SUNDAY = "SUNDAY"
         const val RECURRING = "RECURRING"
         const val TITLE = "TITLE"
-    }*/
+    }
+
 }
+

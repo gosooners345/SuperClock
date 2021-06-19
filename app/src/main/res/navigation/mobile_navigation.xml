@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_timer"/>
     <fragment
         android:id="@+id/createAlarmFragment"
-        android:name="com.superclock.release1.ui.alarms.CreateAlarmFragment"
+        android:name="com.superclock.release1.ui.createalarms.CreateAlarmFragment"
         android:label="alarmTemp"
         tools:layout="@layout/fragment_alarm_create"/>
 

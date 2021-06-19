@@ -8,5 +8,20 @@
     <string name="stopwatch">Stopwatch</string>
     <string name="timer">Timer</string>
     <string name="message_placeholder">Message Here:</string>
+    <string name="schedule_alarm">Schedule Alarm</string>
+    <string name="alarm_time">Alarm Time:</string>
+    <string name="enter_alarm_name_here">Enter Alarm Name here</string>
+    <string name="options">Options</string>
+    <string name="recurring">Recurring?</string>
+    <string name="everyday">Everyday?</string>
+    <string name="recurring_alarms">Recurring Alarms</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="alarm_title">Alarm Title:</string>
 
 </resources>
