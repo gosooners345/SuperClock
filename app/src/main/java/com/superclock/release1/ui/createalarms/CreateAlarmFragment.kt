@@ -16,6 +16,7 @@ import butterknife.ButterKnife
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.superclock.release1.R
+import com.superclock.release1.data.Alarm
 import com.superclock.release1.utils.TimePickerUtil.getTimePickerHour
 import com.superclock.release1.utils.TimePickerUtil.getTimePickerMinute
 import java.util.*
@@ -115,6 +116,7 @@ var everydayCheck : Boolean? = null
             getTimePickerMinute(timePicker!!),
             title!!.text.toString(),
             true,
+            created =System.currentTimeMillis() ,
             recurring!!.isChecked,
             mon!!.isChecked,
             tue!!.isChecked,
@@ -125,7 +127,7 @@ var everydayCheck : Boolean? = null
             sun!!.isChecked
         )
         createAlarmViewModel.insert(alarm)
-        alarm.schedule(context)
+        context?.let { alarm.schedule(it) }
     }
 
     //OnCreate

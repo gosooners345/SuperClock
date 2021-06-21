@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.Toast
+import com.superclock.release1.services.AlarmService
+import com.superclock.release1.services.RescheduleAlarmsService
 import java.util.*
 
 
@@ -36,25 +38,25 @@ class AlarmBroadcastReceiver : BroadcastReceiver()
         val today: Int = calendar.get(Calendar.DAY_OF_WEEK)
         when (today) {
             Calendar.MONDAY -> {
-                return if (intent.getBooleanExtra(MONDAY, false)) true else false
+                return intent.getBooleanExtra(MONDAY, false)
             }
             Calendar.TUESDAY -> {
-                return if (intent.getBooleanExtra(TUESDAY, false)) true else false
+                return intent.getBooleanExtra(TUESDAY, false)
             }
             Calendar.WEDNESDAY -> {
-                return if (intent.getBooleanExtra(WEDNESDAY, false)) true else false
+                return intent.getBooleanExtra(WEDNESDAY, false)
             }
             Calendar.THURSDAY -> {
-                return if (intent.getBooleanExtra(THURSDAY, false)) true else false
+                return intent.getBooleanExtra(THURSDAY, false)
             }
             Calendar.FRIDAY -> {
-                return if (intent.getBooleanExtra(FRIDAY, false)) true else false
+                return intent.getBooleanExtra(FRIDAY, false)
             }
             Calendar.SATURDAY -> {
-                return if (intent.getBooleanExtra(SATURDAY, false)) true else false
+                return intent.getBooleanExtra(SATURDAY, false)
             }
             Calendar.SUNDAY -> {
-                return if (intent.getBooleanExtra(SUNDAY, false)) true else false
+                return intent.getBooleanExtra(SUNDAY, false)
             }
         }
         return false
@@ -86,9 +88,9 @@ class AlarmBroadcastReceiver : BroadcastReceiver()
         const val THURSDAY = "THURSDAY"
         const val FRIDAY = "FRIDAY"
         const val SATURDAY = "SATURDAY"
-
         const val SUNDAY = "SUNDAY"
         const val RECURRING = "RECURRING"
+        const val EVERYDAY = "EVERYDAY"
         const val TITLE = "TITLE"
     }
 

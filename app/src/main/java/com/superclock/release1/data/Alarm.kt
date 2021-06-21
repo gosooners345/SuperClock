@@ -4,29 +4,42 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.superclock.release1.receivers.AlarmBroadcastReceiver
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.FRIDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.MONDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.RECURRING
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.SATURDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.SUNDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.THURSDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.TITLE
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.TUESDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.WEDNESDAY
+import com.superclock.release1.ui.createalarms.DayUtil
 import java.util.*
 
 
 @Entity(tableName = "alarm_table")
 class Alarm(
     @field:PrimaryKey private val alarmId: Int,
-    private val hour: Int,
-    private val minute: Int,
-    private val title: String,
-    private var started: Boolean,
-    private val recurring: Boolean,
-    private val monday: Boolean,
-    private val tuesday: Boolean,
-    private val wednesday: Boolean,
-    private val thursday: Boolean,
-    private val friday: Boolean,
-    private val saturday: Boolean,
-    private val sunday: Boolean
+    public val hour: Int,
+    public val minute: Int,
+    public val title: String,
+    var started: Boolean,
+     var created:Long,
+    public val recurring: Boolean,
+    public val monday: Boolean,
+    public val tuesday: Boolean,
+    public val wednesday: Boolean,
+    public val thursday: Boolean,
+    public val friday: Boolean,
+    public val saturday: Boolean,
+    public val sunday: Boolean
 ) {
+
     fun schedule(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmBroadcastReceiver::class.java)
@@ -70,7 +83,7 @@ class Alarm(
             Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
             alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
+                calendar.timeInMillis,
                 alarmPendingIntent
             )
         } else {
@@ -85,11 +98,58 @@ class Alarm(
             val RUN_DAILY = (24 * 60 * 60 * 1000).toLong()
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
+                calendar.timeInMillis,
                 RUN_DAILY,
                 alarmPendingIntent
             )
         }
         started = true
     }
+    public var AlarmID =alarmId
+//    public var Created:Long = created
+    fun getRecurringDaysText(): String? {
+        if (!recurring) {
+            return null
+        }
+        var days = ""
+        if (monday) {
+            days += "Mon "
+        }
+        if (tuesday) {
+            days += "Tues "
+        }
+        if (wednesday) {
+            days += "Wed "
+        }
+        if (thursday) {
+            days += "Thurs "
+        }
+        if (friday) {
+            days += "Fri "
+        }
+        if (saturday) {
+            days += "Sat "
+        }
+        if (sunday) {
+            days += "Sun "
+        }
+        return days
+    }
+
+
+
+
+
+    fun cancelAlarm(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmBroadcastReceiver::class.java)
+        val alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
+        alarmManager.cancel(alarmPendingIntent)
+        started = false
+        val toastText =
+            String.format("Alarm cancelled for %02d:%02d with id %d", hour, minute, alarmId)
+        Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+        Log.i("cancel", toastText)
+    }
+
 }

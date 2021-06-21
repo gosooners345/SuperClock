@@ -27,7 +27,11 @@
         android:id="@+id/navigation_alarms"
         android:name="com.superclock.release1.ui.alarms.AlarmFragment"
         android:label="@string/alarms"
-        tools:layout="@layout/fragment_alarms"/>
+        tools:layout="@layout/fragment_alarms">
+        <action
+            android:id="@+id/action_alarmsListFragment_to_createAlarmFragment"
+            app:destination="@id/createAlarmFragment"/></fragment>
+/>
 
     <fragment
         android:id="@+id/navigation_timer"
@@ -38,6 +42,8 @@
         android:id="@+id/createAlarmFragment"
         android:name="com.superclock.release1.ui.createalarms.CreateAlarmFragment"
         android:label="alarmTemp"
-        tools:layout="@layout/fragment_alarm_create"/>
-
+        tools:layout="@layout/fragment_alarm_create">
+        <action
+            android:id="@+id/action_createAlarmFragment_to_alarmsListFragment"
+            app:destination="@id/navigation_alarms"/></fragment>
 </navigation>
