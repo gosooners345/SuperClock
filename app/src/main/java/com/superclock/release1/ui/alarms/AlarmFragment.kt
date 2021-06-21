@@ -28,12 +28,12 @@ class AlarmFragment : Fragment(),
         super.onCreate(savedInstanceState)
         alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
         alarmsListViewModel = ViewModelProviders.of(this).get(AlarmViewModel::class.java)
-    alarmsListViewModel!!.getAlarmsLiveData()!!.observe(this,
-            Observer<List<Alarm?>?> { alarms ->
-                if (alarms != null) {
-                    alarmRecyclerViewAdapter!!.setAlarms(alarms as List<Alarm>)
-                }
-            })
+    alarmsListViewModel?.getAlarmsLiveData()?.observe(this,
+        { alarms ->
+            if (alarms != null) {
+                alarmRecyclerViewAdapter?.setAlarms(alarms as List<Alarm>)
+            }
+        })
     }
 
     @Nullable
@@ -44,10 +44,10 @@ class AlarmFragment : Fragment(),
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_alarms, container, false)
         alarmsRecyclerView = view.findViewById(R.id.fragment_listalarms_recylerView)
-        alarmsRecyclerView!!.setLayoutManager(LinearLayoutManager(context))
-        alarmsRecyclerView!!.setAdapter(alarmRecyclerViewAdapter)
+        alarmsRecyclerView!!.layoutManager = LinearLayoutManager(context)
+        alarmsRecyclerView!!.adapter = alarmRecyclerViewAdapter
         addAlarm = view.findViewById(R.id.fragment_listalarms_addAlarm)
-        addAlarm!!.setOnClickListener(View.OnClickListener { v ->
+        addAlarm?.setOnClickListener(View.OnClickListener { v ->
             Navigation.findNavController(v)
                 .navigate(R.id.action_alarmsListFragment_to_createAlarmFragment)
         })

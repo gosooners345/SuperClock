@@ -16,6 +16,6 @@ class CreateAlarmViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun insert(alarm: Alarm?) {
-        alarmRepository!!.insert(alarm)
+        alarmRepository?.insert(alarm)
     }
 }

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -15,6 +17,8 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.superclock.release1.R
 import com.superclock.release1.data.Alarm
 import com.superclock.release1.utils.TimePickerUtil.getTimePickerHour
@@ -31,7 +35,7 @@ var recurrDaysChipGroup: ChipGroup? = null
     var recurrChipGroup: ChipGroup?=null
 
     @BindView(R.id.alarmTitle)
-    var title: EditText? = null
+    var title: TextInputLayout? = null
 
     @BindView(R.id.scheduleAlarm)
     var scheduleAlarm: Button? = null
@@ -84,28 +88,38 @@ var everydayCheck : Boolean? = null
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_alarm_create,container,false)
-     timePicker = view.findViewById<TimePicker>(R.id.timePicker)
-
         ButterKnife.bind(this,view)
+        timePicker = view.findViewById<TimePicker>(R.id.timePicker)
+        recurrDaysChipGroup= view.findViewById(R.id.recurringDaysChipGroup)
+        title= view.findViewById(R.id.alarmTitle)
+        scheduleAlarm = view.findViewById(R.id.scheduleAlarm)
+        recurring=view.findViewById(R.id.recurringChip)
+        everyday=view.findViewById(R.id.everydayChip)
+sun=view.findViewById(R.id.sundayChip)
+        mon =view.findViewById(R.id.mondayChip)
+        tue=view.findViewById(R.id.tuesdayChip)
+wed=view.findViewById(R.id.wednesdayChip)
+        thu=view.findViewById(R.id.thursdayChip)
+        fri=view.findViewById(R.id.fridayChip)
+        sat=view.findViewById(R.id.saturdayChip)
+
+
         //Repeating alarms
-        recurring!!.setOnCheckedChangeListener { _, isChecked ->
+        recurring?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                recurringCheck = true
                 recurrDaysChipGroup?.visibility = View.VISIBLE
             everyday?.visibility = View.VISIBLE
             }
             else {
                 recurrDaysChipGroup?.visibility= View.GONE
                 everyday?.visibility = View.GONE
+                recurringCheck=false
             }
         }
-        scheduleAlarm!!.setOnClickListener { v ->
-            scheduleAlarm()
-            Navigation.findNavController(v)
-                .navigate(R.id.action_createAlarmFragment_to_alarmsListFragment)
+        scheduleAlarm?.setOnClickListener{v->scheduleAlarmButtonListener.onClick(v)
+
         }
-
-
-
         return view
     }
     private fun scheduleAlarm() {
@@ -114,7 +128,7 @@ var everydayCheck : Boolean? = null
             alarmId,
             getTimePickerHour(timePicker!!),
             getTimePickerMinute(timePicker!!),
-            title!!.text.toString(),
+            title!!.editText?.text.toString(),
             true,
             created =System.currentTimeMillis() ,
             recurring!!.isChecked,
@@ -126,9 +140,24 @@ var everydayCheck : Boolean? = null
             sat!!.isChecked,
             sun!!.isChecked
         )
-        createAlarmViewModel.insert(alarm)
+        createAlarmViewModel?.insert(alarm)
         context?.let { alarm.schedule(it) }
     }
+
+
+
+
+
+    var scheduleAlarmButtonListener=View.OnClickListener{
+        Toast.makeText(context,"This Works",Toast.LENGTH_LONG).show()
+        scheduleAlarm()
+        view?.let { it1 ->
+            Navigation.findNavController(it1)
+                .navigate(R.id.action_createAlarmFragment_to_alarmsListFragment)
+        }
+    }
+
+
 
     //OnCreate
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
