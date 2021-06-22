@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import com.superclock.release1.data.Alarm
 
 
 class App : Application() {
@@ -28,5 +29,6 @@ class App : Application() {
 
     companion object {
         const val CHANNEL_ID = "ALARM_SERVICE_CHANNEL"
+        var alarmList = ArrayList<Alarm>()
     }
 }

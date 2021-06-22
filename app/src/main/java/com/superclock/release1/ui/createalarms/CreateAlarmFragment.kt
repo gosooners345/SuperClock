@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import butterknife.BindView
@@ -19,6 +20,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.superclock.release1.App
 import com.superclock.release1.R
 import com.superclock.release1.data.Alarm
 import com.superclock.release1.utils.TimePickerUtil.getTimePickerHour
@@ -115,7 +117,8 @@ wed=view.findViewById(R.id.wednesdayChip)
             sun!!.isChecked
         )
       createAlarmViewModel?.insert(alarm)
-        context?.let { alarm.schedule(it) }
+        context?.let { alarm.schedule(it)
+        App.alarmList.add(alarm)}
 
         }
 
@@ -133,8 +136,8 @@ wed=view.findViewById(R.id.wednesdayChip)
     //OnCreate
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel::class.java)
-
+        //this.createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel::class.java)
+createAlarmViewModel= ViewModelProvider(this).get(CreateAlarmViewModel::class.java)
 
 
 

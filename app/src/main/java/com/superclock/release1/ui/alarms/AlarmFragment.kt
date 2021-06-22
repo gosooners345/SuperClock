@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders.*
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.superclock.release1.App
 import com.superclock.release1.OnToggleAlarmListener
 import com.superclock.release1.R
 import com.superclock.release1.data.Alarm
@@ -21,9 +22,9 @@ import com.superclock.release1.data.Alarm
 
 class AlarmFragment : Fragment(),
     OnToggleAlarmListener {
-    private var alarmRecyclerViewAdapter: AlarmRecyclerViewAdapter? = null
-    private var alarmsListViewModel: AlarmViewModel? = null
-    private var alarmsRecyclerView: RecyclerView? = null
+    private lateinit var alarmRecyclerViewAdapter: AlarmRecyclerViewAdapter
+    private  lateinit var alarmsListViewModel: AlarmViewModel
+    private lateinit var alarmsRecyclerView: RecyclerView
     private var addAlarm: Button? = null
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class AlarmFragment : Fragment(),
         alarmsListViewModel = of(this).get(AlarmViewModel::class.java)
     alarmsListViewModel?.getAlarmsLiveData()?.observe(this,
         { alarms ->
-            if (alarms != null) {
+            if (alarms/*App.alarmList*/ != null) {
                 alarmRecyclerViewAdapter?.setAlarms(alarms as List<Alarm>)
             }
         })
