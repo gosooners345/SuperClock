@@ -24,7 +24,7 @@ import java.util.*
 
 @Entity(tableName = "alarm_table")
 class Alarm(
-    @field:PrimaryKey private val alarmId: Int,
+    @field:PrimaryKey val alarmId: Int,
     public val hour: Int,
     public val minute: Int,
     public val title: String,
@@ -105,7 +105,7 @@ class Alarm(
         }
         started = true
     }
-    public var AlarmID =alarmId
+
 //    public var Created:Long = created
     fun getRecurringDaysText(): String? {
         if (!recurring) {

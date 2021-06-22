@@ -10,6 +10,7 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders.*
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,7 @@ class AlarmFragment : Fragment(),
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
-        alarmsListViewModel = ViewModelProviders.of(this).get(AlarmViewModel::class.java)
+        alarmsListViewModel = of(this).get(AlarmViewModel::class.java)
     alarmsListViewModel?.getAlarmsLiveData()?.observe(this,
         { alarms ->
             if (alarms != null) {
@@ -47,10 +48,10 @@ class AlarmFragment : Fragment(),
         alarmsRecyclerView!!.layoutManager = LinearLayoutManager(context)
         alarmsRecyclerView!!.adapter = alarmRecyclerViewAdapter
         addAlarm = view.findViewById(R.id.fragment_listalarms_addAlarm)
-        addAlarm?.setOnClickListener(View.OnClickListener { v ->
+        addAlarm?.setOnClickListener { v ->
             Navigation.findNavController(v)
                 .navigate(R.id.action_alarmsListFragment_to_createAlarmFragment)
-        })
+        }
         return view
     }
 

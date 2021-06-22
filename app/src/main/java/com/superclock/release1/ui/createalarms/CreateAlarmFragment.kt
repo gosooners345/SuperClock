@@ -27,50 +27,24 @@ import java.util.*
 
 
 class CreateAlarmFragment : Fragment() {
-    @BindView(R.id.timePicker)
+
     var timePicker: TimePicker? = null
-@BindView(R.id.recurringDaysChipGroup)
 var recurrDaysChipGroup: ChipGroup? = null
-    @BindView(R.id.recurringChipGroup)
     var recurrChipGroup: ChipGroup?=null
-
-    @BindView(R.id.alarmTitle)
     var title: TextInputLayout? = null
-
-    @BindView(R.id.scheduleAlarm)
     var scheduleAlarm: Button? = null
-
-    @BindView(R.id.recurringChip)
     var recurring: Chip? = null
-    @BindView(R.id.everydayChip)
     var everyday: Chip? = null
-    
-    @BindView(R.id.mondayChip)
     var mon: Chip? = null
-
-    @BindView(R.id.tuesdayChip)
     var tue: Chip? = null
-
-    @BindView(R.id.wednesdayChip)
     var wed: Chip? = null
-
-    @BindView(R.id.thursdayChip)
     var thu: Chip? = null
-
-    @BindView(R.id.fridayChip)
     var fri: Chip? = null
-
-    @BindView(R.id.saturdayChip)
     var sat: Chip? = null
-
-    @BindView(R.id.sundayChip)
     var sun: Chip? = null
-
-var everydayCheck : Boolean? = null
+    var everydayCheck : Boolean? = null
     var recurringCheck: Boolean? = null
-
-
-    private lateinit var createAlarmViewModel: CreateAlarmViewModel
+    var createAlarmViewModel : CreateAlarmViewModel? = null
 
 
 
@@ -140,13 +114,10 @@ wed=view.findViewById(R.id.wednesdayChip)
             sat!!.isChecked,
             sun!!.isChecked
         )
-        createAlarmViewModel?.insert(alarm)
+      createAlarmViewModel?.insert(alarm)
         context?.let { alarm.schedule(it) }
-    }
 
-
-
-
+        }
 
     var scheduleAlarmButtonListener=View.OnClickListener{
         Toast.makeText(context,"This Works",Toast.LENGTH_LONG).show()
@@ -162,7 +133,7 @@ wed=view.findViewById(R.id.wednesdayChip)
     //OnCreate
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel::class.java)
+        this.createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel::class.java)
 
 
 
