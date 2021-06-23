@@ -18,17 +18,15 @@ import java.util.*
 
 
 class RingActivity : AppCompatActivity() {
-    @BindView(R.id.activity_ring_dismiss)
+
     var dismiss: Button? = null
-
-    @BindView(R.id.activity_ring_snooze)
     var snooze: Button? = null
-
-    @BindView(R.id.activity_ring_clock)
     var clock: ImageView? = null
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ring)
+        dismiss = findViewById(R.id.activity_ring_dismiss)
+        clock = findViewById(R.id.activity_ring_clock)
         ButterKnife.bind(this)
         dismiss!!.setOnClickListener {
             fun onClick(v: View?) {
@@ -38,6 +36,7 @@ class RingActivity : AppCompatActivity() {
             }
 
         }
+        snooze = findViewById(R.id.activity_ring_snooze)
         snooze!!.setOnClickListener {
             fun onClick(v: View?) {
                 val calendar: Calendar = Calendar.getInstance()

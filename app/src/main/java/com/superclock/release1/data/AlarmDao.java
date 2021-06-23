@@ -23,5 +23,8 @@ public interface AlarmDao {
     @Update
     void update(Alarm alarm);
 
+    @Delete
+    void delete(Alarm alarm);
+
 
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.ViewModelProviders.*
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.superclock.release1.App
@@ -52,10 +53,30 @@ class AlarmFragment : Fragment(),
         addAlarm?.setOnClickListener { v ->
             Navigation.findNavController(v)
                 .navigate(R.id.action_alarmsListFragment_to_createAlarmFragment)
+
         }
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alarmsRecyclerView)
+
         return view
     }
 
+    var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT)
+    {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            var alarms = alarmsListViewModel!!.getAlarmsLiveData()
+//deleteAlarm(alarms.to(List<)
+        }
+    }
+
+fun deleteAlarm(alarm: Alarm)
+{
+    alarmsListViewModel!!.delete(alarm)
+
+}
     override fun onToggle(alarm: Alarm?) {
         if (alarm!!.started) {
             alarm!!.cancelAlarm(requireContext())
@@ -66,4 +87,7 @@ class AlarmFragment : Fragment(),
             alarmsListViewModel!!.update(alarm)
         }
     }
+
+
+
 }
