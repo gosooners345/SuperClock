@@ -118,7 +118,7 @@ wed=view.findViewById(R.id.wednesdayChip)
         )
       createAlarmViewModel?.insert(alarm)
         context?.let { alarm.schedule(it)
-        App.alarmList.add(alarm)}
+        }
 
         }
 
@@ -136,7 +136,7 @@ wed=view.findViewById(R.id.wednesdayChip)
     //OnCreate
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //this.createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel::class.java)
+
 createAlarmViewModel= ViewModelProvider(this).get(CreateAlarmViewModel::class.java)
 
 

@@ -9,12 +9,9 @@ import com.superclock.release1.data.AlarmRepository
 
 class CreateAlarmViewModel(application: Application) : AndroidViewModel(application)
 {
-    public var alarmRepository: AlarmRepository?=AlarmRepository(application)
+    var alarmRepository: AlarmRepository?=AlarmRepository(application)
 
-    /*fun CreateAlarmViewModel(application: Application) {
 
-        alarmRepository = AlarmRepository(application)
-    }*/
 
     fun insert(alarm: Alarm?) {
         alarmRepository?.insert(alarm)

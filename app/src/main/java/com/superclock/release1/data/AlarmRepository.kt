@@ -1,38 +1,26 @@
-package com.superclock.release1.data;
+package com.superclock.release1.data
 
-import android.app.Application;
-import androidx.lifecycle.LiveData;
+import android.app.Application
+import androidx.lifecycle.LiveData
 
-import com.superclock.release1.App;
+class AlarmRepository(application: Application?) {
+    private val alarmDao: AlarmDao
+    fun insert(alarm: Alarm?) {
+        AlarmDatabase.databaseWriteExecutor.execute { alarmDao.insert(alarm) }
+    }
 
-import java.util.List;
+    fun update(alarm: Alarm?) {
+        AlarmDatabase.databaseWriteExecutor.execute { alarmDao.update(alarm) }
+    }
 
+    val alarmsLiveData: LiveData<List<Alarm?>?>
+        get() = alarmDao.alarms
 
-public class AlarmRepository {
-    private AlarmDao alarmDao;
     /*private LiveData<List<Alarm>> alarmsLiveData;*/
+    init {
+        val db = AlarmDatabase.getDatabase(application)
+        alarmDao = db.alarmDao()
 
-    public AlarmRepository(Application application) {
-        AlarmDatabase db = AlarmDatabase.getDatabase(application);
-
-        alarmDao = db.alarmDao();
-
-      //  alarmsLiveData = alarmDao.getAlarms();
-    }
-
-    public void insert(Alarm alarm) {
-        AlarmDatabase.databaseWriteExecutor.execute(() -> {
-            alarmDao.insert(alarm);
-        });
-    }
-
-    public void update(Alarm alarm) {
-        AlarmDatabase.databaseWriteExecutor.execute(() -> {
-            alarmDao.update(alarm);
-        });
-    }
-
-    public LiveData<List<Alarm>> getAlarmsLiveData() {
-        return alarmDao.getAlarms();
+        //  alarmsLiveData = alarmDao.getAlarms();
     }
 }

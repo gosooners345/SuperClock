@@ -15,7 +15,7 @@ class AlarmViewHolder(itemView: View, listener: OnToggleAlarmListener) :
     private val alarmRecurring: ImageView
     private val alarmRecurringDays: TextView
     private val alarmTitle: TextView
-    var alarmStarted: Switch
+     val alarmStarted: Switch
     private val listener: OnToggleAlarmListener
     fun bind(alarm: Alarm) {
         val alarmText = String.format("%02d:%02d", alarm.hour, alarm.minute)

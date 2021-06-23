@@ -9,9 +9,11 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.os.Vibrator
+import android.util.Log
 import androidx.annotation.Nullable
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
+import com.superclock.release1.App.Companion.CHANNEL_ID
 import com.superclock.release1.R
 import com.superclock.release1.RingActivity
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.TITLE
@@ -28,10 +30,11 @@ class AlarmService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+
         val notificationIntent = Intent(this, RingActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
         val alarmTitle = String.format("%s Alarm", intent.getStringExtra(TITLE))
-        val notification: Notification = NotificationCompat.Builder(this,"ALARMS")
+        val notification: Notification = NotificationCompat.Builder(this,CHANNEL_ID)
             .setContentTitle(alarmTitle)
             .setContentText("Ring Ring .. Ring Ring")
             .setSmallIcon(R.drawable.ic_alarm_black_24dp)
@@ -42,6 +45,7 @@ class AlarmService : Service() {
         vibrator!!.vibrate(pattern, 0)
         startForeground(1, notification)
         return START_STICKY
+
     }
 
     override fun onDestroy() {

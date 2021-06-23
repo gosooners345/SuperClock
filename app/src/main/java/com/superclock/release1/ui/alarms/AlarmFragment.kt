@@ -32,7 +32,7 @@ class AlarmFragment : Fragment(),
         alarmsListViewModel = of(this).get(AlarmViewModel::class.java)
     alarmsListViewModel?.getAlarmsLiveData()?.observe(this,
         { alarms ->
-            if (alarms/*App.alarmList*/ != null) {
+            if (alarms != null) {
                 alarmRecyclerViewAdapter?.setAlarms(alarms as List<Alarm>)
             }
         })
@@ -60,6 +60,7 @@ class AlarmFragment : Fragment(),
         if (alarm!!.started) {
             alarm!!.cancelAlarm(requireContext())
             alarmsListViewModel!!.update(alarm)
+
         } else {
             alarm!!.schedule(requireContext())
             alarmsListViewModel!!.update(alarm)
