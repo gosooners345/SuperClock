@@ -33,7 +33,7 @@ class AlarmService : Service() {
 
         val notificationIntent = Intent(this, RingActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-        val alarmTitle = String.format("%s Alarm", intent.getStringExtra(TITLE))
+        val alarmTitle = String.format("Alarm"/*, intent.getStringExtra(TITLE)*/)
         val notification: Notification = NotificationCompat.Builder(this,CHANNEL_ID)
             .setContentTitle(alarmTitle)
             .setContentText("Ring Ring .. Ring Ring")
