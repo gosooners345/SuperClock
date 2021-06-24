@@ -9,7 +9,7 @@ import com.superclock.release1.data.AlarmRepository
 
 
 class AlarmViewModel(application: Application) : AndroidViewModel(application) {
-    private var alarmRepository: AlarmRepository? = AlarmRepository(application)
+    var alarmRepository: AlarmRepository? = AlarmRepository(application)
     private var alarmsLiveData: LiveData<List<Alarm?>?> = alarmRepository!!.alarmsLiveData
 
    /* fun AlarmViewModel(application: Application) {
@@ -21,6 +21,7 @@ class AlarmViewModel(application: Application) : AndroidViewModel(application) {
 
     fun update(alarm: Alarm?) {
         alarmRepository!!.update(alarm)
+
     }
     fun delete(alarm: Alarm?)
     {

@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface AlarmDao {
     @Insert
-    void insert(Alarm alarm);
+    void insert(Alarm[] alarm);
 
     @Query("DELETE FROM alarm_table")
     void deleteAll();
@@ -21,10 +21,10 @@ public interface AlarmDao {
     LiveData<List<Alarm>> getAlarms();
 
     @Update
-    void update(Alarm alarm);
+    void update(Alarm[] alarm);
 
     @Delete
-    void delete(Alarm alarm);
+    void delete(Alarm[] alarm);
 
 
 }

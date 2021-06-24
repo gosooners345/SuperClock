@@ -1,30 +1,48 @@
 package com.superclock.release1.data
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
+import com.superclock.release1.async.DeleteAsync
+import com.superclock.release1.async.InsertAsync
+import com.superclock.release1.async.UpdateAsync
+
 
 class AlarmRepository(application: Application?) {
-    private val alarmDao: AlarmDao
+    //private val alarmDao: AlarmDao
+    val db : AlarmDatabase = AlarmDatabase.getDatabase(application)
+
+
     fun insert(alarm: Alarm?) {
-        AlarmDatabase.databaseWriteExecutor.execute { alarmDao.insert(alarm) }
+       // AlarmDatabase.databaseWriteExecutor.execute { alarmDao.insert(alarm) }
+        //db.alarmDao().insert(alarm)
+        InsertAsync(db.alarmDao()).execute(alarm)
+        Log.i("ALARM","Alarm Insertion Successful")
     }
 
     fun update(alarm: Alarm?) {
-        AlarmDatabase.databaseWriteExecutor.execute { alarmDao.update(alarm) }
+    //    AlarmDatabase.databaseWriteExecutor.execute { alarmDao.update(alarm) }
+     UpdateAsync(db.alarmDao()).execute(alarm)
+        Log.i("ALARM","Alarm Update Successful")
     }
 
     fun delete(alarm: Alarm?)
     {
-        AlarmDatabase.databaseWriteExecutor.execute{alarmDao.delete(alarm)}
+        DeleteAsync(db.alarmDao()).execute(alarm)
+
+//        db.alarmDao().delete(alarm)
+        Log.i("ALARM","Alarm Deletion Successful")
+     //   AlarmDatabase.databaseWriteExecutor.execute{alarmDao.delete(alarm)}
+
     }
 
+
     val alarmsLiveData: LiveData<List<Alarm?>?>
-        get() = alarmDao.alarms
+        get() = db.alarmDao().alarms
 
     /*private LiveData<List<Alarm>> alarmsLiveData;*/
     init {
-        val db = AlarmDatabase.getDatabase(application)
-        alarmDao = db.alarmDao()
+        // alarmDao = db.alarmDao()
 
         //  alarmsLiveData = alarmDao.getAlarms();
     }

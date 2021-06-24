@@ -1,6 +1,7 @@
 package com.superclock.release1.ui.alarms
 
 //import android.R
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.superclock.release1.App
+import com.superclock.release1.MainActivity
 import com.superclock.release1.OnToggleAlarmListener
 import com.superclock.release1.R
 import com.superclock.release1.data.Alarm
+import com.superclock.release1.data.AlarmRepository
 
 
 class AlarmFragment : Fragment(),
@@ -26,17 +29,18 @@ class AlarmFragment : Fragment(),
     private lateinit var alarmRecyclerViewAdapter: AlarmRecyclerViewAdapter
     private  lateinit var alarmsListViewModel: AlarmViewModel
     private lateinit var alarmsRecyclerView: RecyclerView
+     var alarmRepository: AlarmRepository? = null
     private var addAlarm: Button? = null
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
+alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
         alarmsListViewModel = of(this).get(AlarmViewModel::class.java)
-    alarmsListViewModel?.getAlarmsLiveData()?.observe(this,
-        { alarms ->
-            if (alarms != null) {
-                alarmRecyclerViewAdapter?.setAlarms(alarms as List<Alarm>)
-            }
+        alarmsListViewModel.getAlarmsLiveData()?.observe(this,{
+            alarms ->
+            if(alarms != null)
+                alarmRecyclerViewAdapter.setAlarms(alarms as List<Alarm>)
         })
+
     }
 
     @Nullable
@@ -47,8 +51,8 @@ class AlarmFragment : Fragment(),
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_alarms, container, false)
         alarmsRecyclerView = view.findViewById(R.id.fragment_listalarms_recylerView)
-        alarmsRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        alarmsRecyclerView!!.adapter = alarmRecyclerViewAdapter
+        alarmsRecyclerView.layoutManager = LinearLayoutManager(context)
+        alarmsRecyclerView.adapter = alarmRecyclerViewAdapter
         addAlarm = view.findViewById(R.id.fragment_listalarms_addAlarm)
         addAlarm?.setOnClickListener { v ->
             Navigation.findNavController(v)
@@ -67,24 +71,32 @@ class AlarmFragment : Fragment(),
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            var alarms = alarmsListViewModel!!.getAlarmsLiveData()
-//deleteAlarm(alarms.to(List<)
+            deleteAlarm(viewHolder.adapterPosition)
         }
     }
 
-fun deleteAlarm(alarm: Alarm)
+    //Load alarms into a list
+
+
+//Delete Alarms by swiping
+fun deleteAlarm(position : Int)
 {
-    alarmsListViewModel!!.delete(alarm)
+var alarmList = alarmRecyclerViewAdapter.getAlarms()
+    var alarm = alarmList[position]
+
+ //   alarmRecyclerViewAdapter.deleteAlarm(alarm)
+    alarmsListViewModel.alarmRepository?.delete(alarm)
+    alarmRecyclerViewAdapter.notifyDataSetChanged()
 
 }
     override fun onToggle(alarm: Alarm?) {
         if (alarm!!.started) {
-            alarm!!.cancelAlarm(requireContext())
-            alarmsListViewModel!!.update(alarm)
+            alarm.cancelAlarm(requireContext())
+            alarmsListViewModel.update(alarm)
 
         } else {
-            alarm!!.schedule(requireContext())
-            alarmsListViewModel!!.update(alarm)
+            alarm.schedule(requireContext())
+            alarmsListViewModel.update(alarm)
         }
     }
 
