@@ -10,7 +10,7 @@ import com.superclock.release1.async.UpdateAsync
 
 class AlarmRepository(application: Application?) {
     //private val alarmDao: AlarmDao
-    val db : AlarmDatabase = AlarmDatabase.getDatabase(application)
+    private val db : AlarmDatabase = AlarmDatabase.getDatabase(application)
 
 
     fun insert(alarm: Alarm?) {

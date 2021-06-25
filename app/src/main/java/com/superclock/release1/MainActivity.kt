@@ -35,7 +35,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-    companion object{
-        lateinit var alarmList : List<Alarm>
-    }
+
 }

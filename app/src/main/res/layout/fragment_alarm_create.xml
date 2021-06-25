@@ -79,6 +79,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/snoozeBox"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/enter_snooze_length_here"
+        app:counterMaxLength="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timePicker">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/recurringChipGroup"
         android:layout_width="wrap_content"
@@ -93,7 +110,7 @@
         app:closeIconEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker">
+        app:layout_constraintTop_toBottomOf="@+id/snoozeBox">
     <com.google.android.material.chip.Chip
         android:id="@+id/recurringChip"
         android:layout_width="wrap_content"
@@ -226,8 +243,8 @@
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:text="Schedule Alarm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />-->
+        app:layout_constraintTop_toBottomOf="@id/recurringDaysChipGroup"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -27,22 +27,20 @@ import com.superclock.release1.data.AlarmRepository
 class AlarmFragment : Fragment(),
     OnToggleAlarmListener {
     private lateinit var alarmRecyclerViewAdapter: AlarmRecyclerViewAdapter
-    private  lateinit var alarmsListViewModel: AlarmViewModel
+    private lateinit var alarmsListViewModel: AlarmViewModel
     private lateinit var alarmsRecyclerView: RecyclerView
-     var alarmRepository: AlarmRepository? = null
     private var addAlarm: Button? = null
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
+        alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
         alarmsListViewModel = of(this).get(AlarmViewModel::class.java)
-        alarmsListViewModel.getAlarmsLiveData()?.observe(this,{
-            alarms ->
-            if(alarms != null)
+        alarmsListViewModel.getAlarmsLiveData()?.observe(this, { alarms ->
+            if (alarms != null)
                 alarmRecyclerViewAdapter.setAlarms(alarms as List<Alarm>)
         })
 
     }
-
+    //Handles creating the scene
     @Nullable
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,31 +62,34 @@ alarmRecyclerViewAdapter = AlarmRecyclerViewAdapter(this)
         return view
     }
 
-    var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT)
-    {
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-            return false
+    //Enables swipe to delete
+    var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
+        object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            //Swipe to delete handler
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                deleteAlarm(viewHolder.adapterPosition)
+            }
         }
 
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            deleteAlarm(viewHolder.adapterPosition)
-        }
+    //Delete Alarms
+    fun deleteAlarm(position: Int) {
+        var alarmList = alarmRecyclerViewAdapter.getAlarms()
+        var alarm = alarmList[position]
+
+        //   alarmRecyclerViewAdapter.deleteAlarm(alarm)
+        alarmsListViewModel.alarmRepository?.delete(alarm)
+        alarmRecyclerViewAdapter.notifyDataSetChanged()
+
     }
-
-    //Load alarms into a list
-
-
-//Delete Alarms by swiping
-fun deleteAlarm(position : Int)
-{
-var alarmList = alarmRecyclerViewAdapter.getAlarms()
-    var alarm = alarmList[position]
-
- //   alarmRecyclerViewAdapter.deleteAlarm(alarm)
-    alarmsListViewModel.alarmRepository?.delete(alarm)
-    alarmRecyclerViewAdapter.notifyDataSetChanged()
-
-}
+    // Toggles the alarm on or off
     override fun onToggle(alarm: Alarm?) {
         if (alarm!!.started) {
             alarm.cancelAlarm(requireContext())
@@ -99,7 +100,6 @@ var alarmList = alarmRecyclerViewAdapter.getAlarms()
             alarmsListViewModel.update(alarm)
         }
     }
-
 
 
 }

@@ -13,6 +13,7 @@ import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.FRIDAY
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.MONDAY
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.RECURRING
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.SATURDAY
+import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.SNOOZE
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.SUNDAY
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.THURSDAY
 import com.superclock.release1.receivers.AlarmBroadcastReceiver.Companion.TITLE
@@ -25,19 +26,20 @@ import java.util.*
 @Entity(tableName = "alarm_table")
 class Alarm(
     @field:PrimaryKey val alarmId: Int,
-    public val hour: Int,
-    public val minute: Int,
-    public val title: String,
+    val hour: Int,
+    val minute: Int,
+    val title: String,
+    val snooze: Int,
     var started: Boolean,
      var created:Long,
-    public val recurring: Boolean,
-    public val monday: Boolean,
-    public val tuesday: Boolean,
-    public val wednesday: Boolean,
-    public val thursday: Boolean,
-    public val friday: Boolean,
-    public val saturday: Boolean,
-    public val sunday: Boolean
+    val recurring: Boolean,
+    val monday: Boolean,
+    val tuesday: Boolean,
+    val wednesday: Boolean,
+    val thursday: Boolean,
+    val friday: Boolean,
+    val saturday: Boolean,
+    val sunday: Boolean
 ) {
 
     fun schedule(context: Context) {
@@ -52,19 +54,20 @@ class Alarm(
         intent.putExtra(SATURDAY, saturday)
         intent.putExtra(SUNDAY, sunday)
         intent.putExtra(TITLE, title)
+        intent.putExtra(SNOOZE,snooze)
         val alarmPendingIntent = PendingIntent.getBroadcast(
             context,
             alarmId, intent, 0
         )
         val calendar: Calendar = Calendar.getInstance()
-        calendar.setTimeInMillis(System.currentTimeMillis())
+        calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
         // if alarm time has already passed, increment day by 1
-        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+        if (calendar.timeInMillis <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1)
         }
         if (!recurring) {

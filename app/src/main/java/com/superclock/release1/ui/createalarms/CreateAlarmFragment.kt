@@ -33,6 +33,7 @@ class CreateAlarmFragment : Fragment() {
     var timePicker: TimePicker? = null
 var recurrDaysChipGroup: ChipGroup? = null
     var recurrChipGroup: ChipGroup?=null
+    var snoozeLength : TextInputLayout? = null
     var title: TextInputLayout? = null
     var scheduleAlarm: Button? = null
     var recurring: Chip? = null
@@ -63,21 +64,22 @@ var recurrDaysChipGroup: ChipGroup? = null
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_alarm_create,container,false)
-        ButterKnife.bind(this,view)
+        val view = inflater.inflate(R.layout.fragment_alarm_create, container, false)
+        ButterKnife.bind(this, view)
         timePicker = view.findViewById<TimePicker>(R.id.timePicker)
-        recurrDaysChipGroup= view.findViewById(R.id.recurringDaysChipGroup)
-        title= view.findViewById(R.id.alarmTitle)
+        recurrDaysChipGroup = view.findViewById(R.id.recurringDaysChipGroup)
+        title = view.findViewById(R.id.alarmTitle)
         scheduleAlarm = view.findViewById(R.id.scheduleAlarm)
-        recurring=view.findViewById(R.id.recurringChip)
-        everyday=view.findViewById(R.id.everydayChip)
-sun=view.findViewById(R.id.sundayChip)
-        mon =view.findViewById(R.id.mondayChip)
-        tue=view.findViewById(R.id.tuesdayChip)
-wed=view.findViewById(R.id.wednesdayChip)
-        thu=view.findViewById(R.id.thursdayChip)
-        fri=view.findViewById(R.id.fridayChip)
-        sat=view.findViewById(R.id.saturdayChip)
+        recurring = view.findViewById(R.id.recurringChip)
+        everyday = view.findViewById(R.id.everydayChip)
+        sun = view.findViewById(R.id.sundayChip)
+        mon = view.findViewById(R.id.mondayChip)
+        tue = view.findViewById(R.id.tuesdayChip)
+        wed = view.findViewById(R.id.wednesdayChip)
+        thu = view.findViewById(R.id.thursdayChip)
+        fri = view.findViewById(R.id.fridayChip)
+        sat = view.findViewById(R.id.saturdayChip)
+snoozeLength = view.findViewById(R.id.snoozeBox)
 
 
         //Repeating alarms
@@ -85,15 +87,15 @@ wed=view.findViewById(R.id.wednesdayChip)
             if (isChecked) {
                 recurringCheck = true
                 recurrDaysChipGroup?.visibility = View.VISIBLE
-            everyday?.visibility = View.VISIBLE
-            }
-            else {
-                recurrDaysChipGroup?.visibility= View.GONE
+                everyday?.visibility = View.VISIBLE
+            } else {
+                recurrDaysChipGroup?.visibility = View.GONE
                 everyday?.visibility = View.GONE
-                recurringCheck=false
+                recurringCheck = false
             }
         }
-        scheduleAlarm?.setOnClickListener{v->scheduleAlarmButtonListener.onClick(v)
+        scheduleAlarm?.setOnClickListener { v ->
+            scheduleAlarmButtonListener.onClick(v)
 
         }
         return view
@@ -105,6 +107,7 @@ wed=view.findViewById(R.id.wednesdayChip)
             getTimePickerHour(timePicker!!),
             getTimePickerMinute(timePicker!!),
             title!!.editText?.text.toString(),
+           (snoozeLength!!.editText?.text.toString()).toInt(),
             true,
             created =System.currentTimeMillis() ,
             recurring!!.isChecked,
@@ -132,16 +135,10 @@ wed=view.findViewById(R.id.wednesdayChip)
     }
 
 
-
     //OnCreate
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-createAlarmViewModel= ViewModelProvider(this).get(CreateAlarmViewModel::class.java)
-
-
-
-
+        createAlarmViewModel = ViewModelProvider(this).get(CreateAlarmViewModel::class.java)
     }
 
 
