@@ -3,12 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbars="vertical"
+    android:nestedScrollingEnabled="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:fitsSystemWindows="true"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/scheduleAlarmHeading"
@@ -86,14 +89,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/enter_snooze_length_here"
-        app:counterMaxLength="2"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timePicker">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:digits="true" />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.chip.ChipGroup
@@ -124,20 +127,16 @@
         app:closeIconVisible="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker" />
-    <com.google.android.material.chip.Chip
-    android:id="@+id/everydayChip"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:checkable="true"
-    android:text="@string/everyday"
-    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-    app:chipIconVisible="true"
-    app:closeIconVisible="false"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+
     </com.google.android.material.chip.ChipGroup>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizontalChipScroller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recurringChipGroup"
+        >
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/recurringDaysChipGroup"
         android:layout_width="wrap_content"
@@ -150,9 +149,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:chipIconVisible="true"
         app:closeIconEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recurringChipGroup"
+        app:singleLine="true"
+
         >
 
         <com.google.android.material.chip.Chip
@@ -225,7 +223,7 @@
             app:chipIconVisible="true"
             app:closeIconVisible="false" />
     </com.google.android.material.chip.ChipGroup>
-
+    </HorizontalScrollView>
     <TextView
         android:id="@+id/alarm_title_TV"
         android:layout_width="wrap_content"
@@ -243,7 +241,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:text="Schedule Alarm"
-        app:layout_constraintTop_toBottomOf="@id/recurringDaysChipGroup"
+        app:layout_constraintTop_toBottomOf="@id/horizontalChipScroller"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

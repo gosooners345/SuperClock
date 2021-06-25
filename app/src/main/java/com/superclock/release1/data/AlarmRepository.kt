@@ -7,43 +7,36 @@ import com.superclock.release1.async.DeleteAsync
 import com.superclock.release1.async.InsertAsync
 import com.superclock.release1.async.UpdateAsync
 
+/*
+Summary: This class is used to handle the CRUD Operations of the alarm database class
+Author: Brandon Guerin
+Languages Used: Kotlin
+ */
 
 class AlarmRepository(application: Application?) {
-    //private val alarmDao: AlarmDao
+    //DB Variable needed for this class
     private val db : AlarmDatabase = AlarmDatabase.getDatabase(application)
 
-
+    //Add new alarm
     fun insert(alarm: Alarm?) {
-       // AlarmDatabase.databaseWriteExecutor.execute { alarmDao.insert(alarm) }
-        //db.alarmDao().insert(alarm)
+
         InsertAsync(db.alarmDao()).execute(alarm)
         Log.i("ALARM","Alarm Insertion Successful")
     }
-
+    //Update Alarm
     fun update(alarm: Alarm?) {
-    //    AlarmDatabase.databaseWriteExecutor.execute { alarmDao.update(alarm) }
+
      UpdateAsync(db.alarmDao()).execute(alarm)
         Log.i("ALARM","Alarm Update Successful")
     }
-
+    //Delete Alarm
     fun delete(alarm: Alarm?)
     {
         DeleteAsync(db.alarmDao()).execute(alarm)
-
-//        db.alarmDao().delete(alarm)
         Log.i("ALARM","Alarm Deletion Successful")
-     //   AlarmDatabase.databaseWriteExecutor.execute{alarmDao.delete(alarm)}
-
     }
 
-
+    //Retrieve alarm list
     val alarmsLiveData: LiveData<List<Alarm?>?>
         get() = db.alarmDao().alarms
-
-    /*private LiveData<List<Alarm>> alarmsLiveData;*/
-    init {
-        // alarmDao = db.alarmDao()
-
-        //  alarmsLiveData = alarmDao.getAlarms();
-    }
 }

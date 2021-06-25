@@ -24,5 +24,7 @@
     <string name="saturday">Saturday</string>
     <string name="alarm_title">Alarm Title:</string>
     <string name="enter_snooze_length_here">Enter Snooze length here</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
 
 </resources>

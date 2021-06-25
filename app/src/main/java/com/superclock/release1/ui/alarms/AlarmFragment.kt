@@ -81,10 +81,10 @@ class AlarmFragment : Fragment(),
 
     //Delete Alarms
     fun deleteAlarm(position: Int) {
+       //Retrieve Position of alarm to delete
         var alarmList = alarmRecyclerViewAdapter.getAlarms()
         var alarm = alarmList[position]
-
-        //   alarmRecyclerViewAdapter.deleteAlarm(alarm)
+        //Delete alarm
         alarmsListViewModel.alarmRepository?.delete(alarm)
         alarmRecyclerViewAdapter.notifyDataSetChanged()
 

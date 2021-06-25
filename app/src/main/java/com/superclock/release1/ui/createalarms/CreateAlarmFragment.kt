@@ -37,7 +37,7 @@ var recurrDaysChipGroup: ChipGroup? = null
     var title: TextInputLayout? = null
     var scheduleAlarm: Button? = null
     var recurring: Chip? = null
-    var everyday: Chip? = null
+    //var everyday: Chip? = null
     var mon: Chip? = null
     var tue: Chip? = null
     var wed: Chip? = null
@@ -45,19 +45,10 @@ var recurrDaysChipGroup: ChipGroup? = null
     var fri: Chip? = null
     var sat: Chip? = null
     var sun: Chip? = null
-    var everydayCheck : Boolean? = null
+    var snoozeLengthint :Int = 0
+   // var everydayCheck : Boolean? = null
     var recurringCheck: Boolean? = null
     var createAlarmViewModel : CreateAlarmViewModel? = null
-
-
-
-
-
-
-
-  //Not implementing yet
-    //  private var _binding: FragmentAlarmCreateBinding?=null
-//private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +62,7 @@ var recurrDaysChipGroup: ChipGroup? = null
         title = view.findViewById(R.id.alarmTitle)
         scheduleAlarm = view.findViewById(R.id.scheduleAlarm)
         recurring = view.findViewById(R.id.recurringChip)
-        everyday = view.findViewById(R.id.everydayChip)
+       // everyday = view.findViewById(R.id.everydayChip)
         sun = view.findViewById(R.id.sundayChip)
         mon = view.findViewById(R.id.mondayChip)
         tue = view.findViewById(R.id.tuesdayChip)
@@ -81,16 +72,14 @@ var recurrDaysChipGroup: ChipGroup? = null
         sat = view.findViewById(R.id.saturdayChip)
 snoozeLength = view.findViewById(R.id.snoozeBox)
 
-
         //Repeating alarms
         recurring?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 recurringCheck = true
                 recurrDaysChipGroup?.visibility = View.VISIBLE
-                everyday?.visibility = View.VISIBLE
+              //  everyday?.visibility = View.VISIBLE
             } else {
                 recurrDaysChipGroup?.visibility = View.GONE
-                everyday?.visibility = View.GONE
                 recurringCheck = false
             }
         }
@@ -102,12 +91,19 @@ snoozeLength = view.findViewById(R.id.snoozeBox)
     }
     private fun scheduleAlarm() {
         val alarmId: Int = Random().nextInt(Int.MAX_VALUE)
+        if (snoozeLength!!.editText?.text.toString().length==0)
+            snoozeLengthint = 10
+        else
+            snoozeLengthint =(snoozeLength!!.editText?.text.toString()).toInt()
+
+
+
         val alarm = Alarm(
             alarmId,
             getTimePickerHour(timePicker!!),
             getTimePickerMinute(timePicker!!),
             title!!.editText?.text.toString(),
-           (snoozeLength!!.editText?.text.toString()).toInt(),
+           snoozeLengthint,
             true,
             created =System.currentTimeMillis() ,
             recurring!!.isChecked,
